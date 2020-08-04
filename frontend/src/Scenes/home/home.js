@@ -1,7 +1,7 @@
 import React from 'react';
-import Button from '../Components/Button/Button.js'
+import Button from '../../Components/button/button.js';
 
-class Homescreen extends React.Component {
+class Home extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -28,4 +28,4 @@ class Homescreen extends React.Component {
   }
 
 
-export default Homescreen;
+export default Home;
