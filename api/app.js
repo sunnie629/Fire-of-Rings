@@ -1,20 +1,23 @@
 const { MongoClient } = require("mongodb");
-const config = require("./config")
+const express = require("express");
+//const cors = require("cors");
+const mongoConnect = require("./mongoConnect");
 
-const url = config.dbLink;
-console.log(url)
+const app = express();
+app.use(express.json());
 
-async function listDatabases(client){
-    databasesList = await client.db().admin().listDatabases();
- 
-    console.log("Databases:");
-    databasesList.databases.forEach(db => console.log(` - ${db.name}`));
-};
+const usersRouter = require("./routes/users");
+const questionsRouter = require("./routes/questions");
 
-MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, (error, client) => {
-    if (error) {
-      return console.log("Connection failed for some reason");
-    }
-    console.log("Connection established - All well");
-    listDatabases(client);
-});
+app.use("/users", usersRouter);
+app.use("/questions", questionsRouter);
+
+// async function listDatabases(client) {
+//   databasesList = await client.db().admin().listDatabases();
+//   console.log("Databases:");
+//   databasesList.databases.forEach((db) => console.log(` - ${db.name}`));
+// }
+
+const port = process.env.PORT || 5000;
+app.listen(port, () => console.log(`listening on port ${port}`));
+mongoConnect.connectMongo();
