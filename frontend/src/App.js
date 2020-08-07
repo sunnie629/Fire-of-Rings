@@ -1,15 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Home from './Scenes/home/home'
+import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import "./App.css";
+import Home from "./Components/home/home";
+import CreateRoom from "./Components/createRoom";
+import JoinRoom from "./Components/joinRoom";
+import Game from "./Components/game";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <Home/>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <Switch>
+          <Route path="/joinRoom">
+            <JoinRoom />
+          </Route>
+          <Route path="/createRoom">
+            <CreateRoom />
+          </Route>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/game">
+            <Game />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
