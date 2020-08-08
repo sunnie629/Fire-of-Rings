@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import io from "socket.io-client";
+import axios from "axios";
 
 let socket;
-const endpoint = "localhost:5000";
+const endpoint = "http://localhost:5000";
 
 class CreateRoom extends Component {
   state = {
     name: "",
-    roomCode: "13",
+    roomCode: "1234",
     users: [],
     sumbitted: false,
   };
@@ -30,11 +31,37 @@ class CreateRoom extends Component {
       name: this.state.name,
       roomCode: this.state.roomCode,
     });
+    axios
+      .post(`${endpoint}/room/postRoom`, {
+        users: this.state.users,
+        roomCode: this.state.roomCode,
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
     this.setState({ submitted: true });
   };
 
   handleChangeName = (event) => {
     this.setState({ name: event.target.value });
+  };
+
+  handleStart = () => {
+    console.log(this.state.users);
+    axios
+      .put(`${endpoint}/room/updateRoom`, {
+        users: this.state.users,
+        roomCode: this.state.roomCode,
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   render() {
@@ -52,7 +79,7 @@ class CreateRoom extends Component {
               })}
             </ul>
             <Link to="/game">
-              <button>Start Game</button>
+              <button onClick={this.handleStart}>Start Game</button>
             </Link>
           </div>
         ) : (

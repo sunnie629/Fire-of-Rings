@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import io from "socket.io-client";
+import axios from "axios";
 
 let socket;
 const endpoint = "localhost:5000";
@@ -56,9 +57,6 @@ class JoinRoom extends Component {
                 return <li>{user.name}</li>;
               })}
             </ul>
-            <Link to="/game">
-              <button>Start Game</button>
-            </Link>
           </div>
         ) : (
           <div>
