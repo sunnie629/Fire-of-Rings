@@ -8,7 +8,7 @@ const endpoint = "localhost:5000";
 class CreateRoom extends Component {
   state = {
     name: "",
-    roomCode: "13",
+    roomCode: Math.floor(Math.random() * 1000),
     users: [],
     sumbitted: false,
   };
@@ -16,6 +16,7 @@ class CreateRoom extends Component {
   componentDidMount() {
     socket = io(endpoint);
     socket.on("usersUpdated", ({ usersarr }) => {
+      console.log("createRoom ln:19");
       this.setState({ users: usersarr });
     });
   }
