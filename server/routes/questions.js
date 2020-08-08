@@ -2,10 +2,13 @@ const express = require("express");
 const router = express.Router();
 const mongoConnect = require("../mongoConnect");
 
-router.get("/get", (req, res) => {
+router.get("/getAllQuestions", (req, res) => {
   const db = mongoConnect.db();
-  console.log(db.collection("questions"));
-  res.send("db");
+  // const docs = db.collection("questions").find({}).data;
+  console.log(docs);
+  const arr = [];
+  for (doc in docs) arr.push(doc);
+  res.send(arr);
 });
 
 router.post("/postQuestion", (req, res) => {
