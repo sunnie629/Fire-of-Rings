@@ -54,7 +54,7 @@ class JoinRoom extends Component {
             <h1>Room code: {this.state.roomCode}</h1>
             <ul>
               {this.state.users.map((user) => {
-                return <li>{user.name}</li>;
+                return <li key={user.name}>{user.name}</li>;
               })}
             </ul>
           </div>
